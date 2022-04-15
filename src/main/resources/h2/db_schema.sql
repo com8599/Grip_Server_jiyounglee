@@ -13,8 +13,8 @@ create table if not exists `download_file` (
 )
 ;
 
-CREATE INDEX `index_id_status_account_id`
+CREATE INDEX if not exists `index_id_status_account_id`
     ON `download_file` (`id`, `status`, `account_id`);
 
-CREATE INDEX `index_status`
+CREATE INDEX if not exists `index_status`
     ON `download_file` (`status`);
