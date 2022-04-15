@@ -1,4 +1,4 @@
-package com.grip.demo.model.domain;
+package com.grip.demo.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

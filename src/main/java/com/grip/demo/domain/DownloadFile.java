@@ -1,4 +1,4 @@
-package com.grip.demo.model.domain;
+package com.grip.demo.domain;
 
 import javax.persistence.*;
 import java.util.Date;
