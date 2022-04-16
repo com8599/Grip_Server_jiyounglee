@@ -1,11 +1,30 @@
 package com.grip.demo.service;
 
+import com.grip.demo.domain.DownloadFile;
 import com.grip.demo.domain.DownloadFileRepository;
-import lombok.RequiredArgsConstructor;
+import com.grip.demo.dto.DownloadFileResponseDto;
+import com.grip.demo.dto.DownloadFileSaveRequestDto;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+
 @Service
-@RequiredArgsConstructor
 public class DownloadFileService {
     private final DownloadFileRepository downloadFileRepository;
+    private final FileUploader fileUploader;
+
+    public DownloadFileService(DownloadFileRepository downloadFileRepository, FileUploader fileUploader) {
+        this.downloadFileRepository = downloadFileRepository;
+        this.fileUploader = fileUploader;
+    }
+
+    public DownloadFileResponseDto saveDownloadFile(DownloadFileSaveRequestDto requestDto) throws IOException {
+        Path path = fileUploader.upload(requestDto.getLink())
+                .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
+
+        DownloadFile downloadFile = downloadFileRepository.save(requestDto.toEntity(path.toAbsolutePath().toString()));
+        return DownloadFileResponseDto.of(downloadFile, "");
+    }
 }

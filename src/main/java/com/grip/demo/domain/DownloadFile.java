@@ -36,11 +36,55 @@ public class DownloadFile {
 
     private long hit;
 
+    public DownloadFile(Long accountId, String link, String title, String body, String directory) {
+        this.accountId = accountId;
+        this.link = link;
+        this.title = title;
+        this.body = body;
+        this.directory = directory;
+    }
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public long getHit() {
+        return hit;
     }
 }
