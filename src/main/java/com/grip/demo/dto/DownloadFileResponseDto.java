@@ -19,6 +19,7 @@ public class DownloadFileResponseDto {
     private long hit;
 
     private static final String DEFAULT_ACCOUNT_NAME = "";
+    // TODO: account 도메인 생성이 삭제될 항목
 
     public DownloadFileResponseDto(DownloadFile downloadFile, String accountName) {
         this.id = downloadFile.getId();
