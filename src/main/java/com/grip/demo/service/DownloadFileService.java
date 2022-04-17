@@ -6,6 +6,9 @@ import com.grip.demo.dto.DownloadFileResponseDto;
 import com.grip.demo.dto.DownloadFileSaveRequestDto;
 import com.grip.demo.dto.DownloadFileUpdateRequestDto;
 import com.grip.demo.enumclass.StatusKind;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,12 +34,14 @@ public class DownloadFileService {
     }
 
     @Transactional
+    @CachePut(value = "files", key = "#id")
     public void updateDownloadFile(Long id, DownloadFileUpdateRequestDto requestDto) {
         DownloadFile downloadFile = downloadFileRepository.findByIdAndStatusLessThan(id, StatusKind.DELETE.getId()).orElseThrow(RuntimeException::new);
         downloadFile.update(new DownloadFile(requestDto.getTitle(), requestDto.getBody()));
     }
 
     @Transactional
+    @CacheEvict(value = "files", key = "#id")
     public void removeDownloadFile(Long id) {
         DownloadFile downloadFile = downloadFileRepository.findByIdAndStatusLessThan(id, StatusKind.DELETE.getId()).orElseThrow(RuntimeException::new);
         downloadFile.delete();
@@ -50,6 +55,7 @@ public class DownloadFileService {
                 .collect(Collectors.toList());
     }
 
+    @Cacheable(value = "files", key = "#id")
     public DownloadFileResponseDto findById(Long id) {
         DownloadFile downloadFile = downloadFileRepository.findByIdAndStatusLessThan(id, StatusKind.DELETE.getId()).orElseThrow(RuntimeException::new);
         downloadFile.increaseHit();
