@@ -14,6 +14,9 @@
 ### db_schema.sql 경로
 `classpath:/db_schema.sql`
 
+### api doc 주소
+`http://localhost:8080/swagger-ui/index.html#/`
+
 ### api 주소
 1. create : 입력으로 스크랩할 이미지의 URL과 이미지에 대한 제목 및 설명을 받아서 DB에 저장하고 이미지를 다운로드 하여 로컬 파일시스템에 저장.
     - `POST` link : `/api/v1/download/files`
