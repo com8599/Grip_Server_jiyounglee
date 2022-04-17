@@ -6,6 +6,7 @@ import com.grip.demo.dto.DownloadFileResponseDto;
 import com.grip.demo.dto.DownloadFileSaveRequestDto;
 import com.grip.demo.dto.DownloadFileUpdateRequestDto;
 import com.grip.demo.enumclass.StatusKind;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -21,7 +22,8 @@ public class DownloadFileService {
     private final DownloadFileRepository downloadFileRepository;
     private final FileUploader fileUploader;
 
-    private static final int DEFAULT_PAGE = 10;
+    @Value("${default.value.page}")
+    private int defaultPage;
 
     public DownloadFileService(DownloadFileRepository downloadFileRepository, FileUploader fileUploader) {
         this.downloadFileRepository = downloadFileRepository;
@@ -48,7 +50,7 @@ public class DownloadFileService {
     }
 
     public List<DownloadFileResponseDto> findDownloadFilesResponses(int page) {
-        PageRequest pageRequest = PageRequest.of(page, DEFAULT_PAGE);
+        PageRequest pageRequest = PageRequest.of(page, defaultPage);
         List<DownloadFile> downloadFiles = downloadFileRepository.findAllByStatusLessThan(StatusKind.DELETE.getId(), pageRequest);
         return downloadFiles.stream()
                 .map(DownloadFileResponseDto::of)

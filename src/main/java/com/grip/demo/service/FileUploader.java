@@ -2,6 +2,7 @@ package com.grip.demo.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -19,7 +20,9 @@ import java.util.UUID;
 public class FileUploader {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private static final String OUTPUT_FILE_PATH = "/img/";
+    @Value("${default.value.file_path}")
+    private String outputFilePath;
+
     // 로컬에 저장된 이미지 지우기
     private void removeNewFile(String path) throws IOException {
         Files.delete(new File(path).toPath());
@@ -29,12 +32,12 @@ public class FileUploader {
     public String upload(String link) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String currentDate = simpleDateFormat.format(new Date());
-        File convertFile = new File(System.getProperty("user.dir") + OUTPUT_FILE_PATH + currentDate);
+        File convertFile = new File(System.getProperty("user.dir") + outputFilePath + currentDate);
         // not exist the root, mkdir the root
         if (!convertFile.exists() && !convertFile.mkdirs()) {
             logger.error("fail to mkdir");
         }
-        String outputDir = System.getProperty("user.dir") + OUTPUT_FILE_PATH + currentDate;
+        String outputDir = System.getProperty("user.dir") + outputFilePath + currentDate;
         InputStream is = null;
         FileOutputStream os = null;
         try{
