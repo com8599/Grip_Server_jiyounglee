@@ -63,8 +63,8 @@ public class FileUploader {
                 }
 
                 logger.info("Content-Type = " + contentType
-                        + "\nContent-Disposition = " + disposition
-                        + "\nfileName = " + fileName);
+                        + ", Content-Disposition = " + disposition
+                        + ", fileName = " + fileName);
 
                 is = conn.getInputStream();
                 File file = new File(outputDir, UUID.randomUUID() + fileName);
