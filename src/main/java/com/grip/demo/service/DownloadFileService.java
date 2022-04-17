@@ -20,11 +20,8 @@ public class DownloadFileService {
         this.fileUploader = fileUploader;
     }
 
-    public DownloadFileResponseDto saveDownloadFile(DownloadFileSaveRequestDto requestDto) throws IOException {
-        Path path = fileUploader.upload(requestDto.getLink())
-                .orElseThrow(() -> new IllegalArgumentException("error: MultipartFile -> File convert fail"));
-
-        DownloadFile downloadFile = downloadFileRepository.save(requestDto.toEntity(path.toAbsolutePath().toString()));
+    public DownloadFileResponseDto saveDownloadFile(DownloadFileSaveRequestDto requestDto) {
+        DownloadFile downloadFile = downloadFileRepository.save(requestDto.toEntity(fileUploader.upload(requestDto.getLink())));
         return DownloadFileResponseDto.of(downloadFile, "");
     }
 }

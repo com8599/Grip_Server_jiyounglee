@@ -1,9 +1,12 @@
 package com.grip.demo.domain;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@DynamicInsert
 public class DownloadFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,11 +40,27 @@ public class DownloadFile {
     private long hit;
 
     public DownloadFile(Long accountId, String link, String title, String body, String directory) {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.status = 0;
         this.accountId = accountId;
         this.link = link;
         this.title = title;
         this.body = body;
         this.directory = directory;
+        this.hit = 0;
+    }
+
+    public DownloadFile() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+        this.status = 0;
+        this.accountId = 0L;
+        this.link = "";
+        this.title = "";
+        this.body = "";
+        this.directory = "";
+        this.hit = 0;
     }
 
     public Long getId() {
