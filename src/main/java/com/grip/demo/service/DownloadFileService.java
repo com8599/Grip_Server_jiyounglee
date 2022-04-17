@@ -4,11 +4,10 @@ import com.grip.demo.domain.DownloadFile;
 import com.grip.demo.domain.DownloadFileRepository;
 import com.grip.demo.dto.DownloadFileResponseDto;
 import com.grip.demo.dto.DownloadFileSaveRequestDto;
+import com.grip.demo.dto.DownloadFileUpdateRequestDto;
+import com.grip.demo.enumclass.StatusKind;
 import org.springframework.stereotype.Service;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DownloadFileService {
@@ -23,5 +22,11 @@ public class DownloadFileService {
     public DownloadFileResponseDto saveDownloadFile(DownloadFileSaveRequestDto requestDto) {
         DownloadFile downloadFile = downloadFileRepository.save(requestDto.toEntity(fileUploader.upload(requestDto.getLink())));
         return DownloadFileResponseDto.of(downloadFile, "");
+    }
+
+    @Transactional
+    public void updateDownloadFile(Long id, DownloadFileUpdateRequestDto requestDto) {
+        DownloadFile downloadFile = downloadFileRepository.findByIdAndStatusLessThan(id, StatusKind.DELETE.getId()).orElseThrow(RuntimeException::new);
+        downloadFile.update(new DownloadFile(requestDto.getTitle(), requestDto.getBody()));
     }
 }

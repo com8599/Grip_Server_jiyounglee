@@ -63,6 +63,11 @@ public class DownloadFile {
         this.hit = 0;
     }
 
+    public DownloadFile(String title, String body) {
+        this.title = title;
+        this.body = body;
+    }
+
     public Long getId() {
         return id;
     }
@@ -105,5 +110,10 @@ public class DownloadFile {
 
     public long getHit() {
         return hit;
+    }
+
+    public void update(DownloadFile downloadFile) {
+        this.title = downloadFile.getTitle();
+        this.body = downloadFile.getBody();
     }
 }

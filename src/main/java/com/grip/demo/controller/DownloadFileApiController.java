@@ -2,14 +2,11 @@ package com.grip.demo.controller;
 
 import com.grip.demo.dto.DownloadFileResponseDto;
 import com.grip.demo.dto.DownloadFileSaveRequestDto;
+import com.grip.demo.dto.DownloadFileUpdateRequestDto;
 import com.grip.demo.service.DownloadFileService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.net.URI;
 
 @RestController
@@ -22,8 +19,14 @@ public class DownloadFileApiController {
     }
 
     @PostMapping()
-    public ResponseEntity<DownloadFileResponseDto> save(@RequestBody DownloadFileSaveRequestDto requestDto) throws IOException {
+    public ResponseEntity<DownloadFileResponseDto> save(@RequestBody DownloadFileSaveRequestDto requestDto) {
         DownloadFileResponseDto downloadFile = downloadFileService.saveDownloadFile(requestDto);
         return ResponseEntity.created(URI.create("/api/v1/download/files/" + downloadFile.getId())).body(downloadFile);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<DownloadFileResponseDto> update(@PathVariable Long id, @RequestBody DownloadFileUpdateRequestDto requestDto) {
+        downloadFileService.updateDownloadFile(id, requestDto);
+        return ResponseEntity.ok().build();
     }
 }
