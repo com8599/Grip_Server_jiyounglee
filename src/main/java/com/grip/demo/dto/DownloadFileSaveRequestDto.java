@@ -8,9 +8,6 @@ public class DownloadFileSaveRequestDto {
     private String title;
     private String body;
 
-//    public DownloadFileSaveRequestDto() {
-//    }
-//
     public DownloadFileSaveRequestDto(Long accountId, String link, String title, String body) {
         this.accountId = accountId;
         this.link = link;

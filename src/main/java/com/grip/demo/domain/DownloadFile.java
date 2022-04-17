@@ -116,4 +116,12 @@ public class DownloadFile {
         this.title = downloadFile.getTitle();
         this.body = downloadFile.getBody();
     }
+
+    public void delete() {
+        this.status = 100;
+    }
+
+    public void increaseHit() {
+        this.hit += 1;
+    }
 }

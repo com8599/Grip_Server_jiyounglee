@@ -21,8 +21,8 @@ public class FileUploader {
 
     private static final String OUTPUT_FILE_PATH = "/img/";
     // 로컬에 저장된 이미지 지우기
-    private void removeNewFile(File targetFile) throws IOException {
-        Files.delete(targetFile.toPath());
+    private void removeNewFile(String path) throws IOException {
+        Files.delete(new File(path).toPath());
     }
 
     // 로컬에 파일 업로드 하기

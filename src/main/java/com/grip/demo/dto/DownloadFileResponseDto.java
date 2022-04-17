@@ -2,7 +2,6 @@ package com.grip.demo.dto;
 
 import com.grip.demo.domain.DownloadFile;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 public class DownloadFileResponseDto {
@@ -19,6 +18,8 @@ public class DownloadFileResponseDto {
     private String directory;
     private long hit;
 
+    private static final String DEFAULT_ACCOUNT_NAME = "";
+
     public DownloadFileResponseDto(DownloadFile downloadFile, String accountName) {
         this.id = downloadFile.getId();
         this.createdAt = downloadFile.getCreatedAt();
@@ -33,12 +34,51 @@ public class DownloadFileResponseDto {
         this.hit = downloadFile.getHit();
     }
 
-    public static DownloadFileResponseDto of(DownloadFile downloadFile, String accountName) {
-        return new DownloadFileResponseDto(downloadFile, accountName);
-
+    public static DownloadFileResponseDto of(DownloadFile downloadFile) {
+        return new DownloadFileResponseDto(downloadFile, DEFAULT_ACCOUNT_NAME);
     }
 
     public Long getId() {
         return id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public Long getAccountId() {
+        return accountId;
+    }
+
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getDirectory() {
+        return directory;
+    }
+
+    public long getHit() {
+        return hit;
     }
 }
