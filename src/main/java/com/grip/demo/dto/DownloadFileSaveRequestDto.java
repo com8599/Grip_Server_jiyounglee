@@ -19,7 +19,19 @@ public class DownloadFileSaveRequestDto {
         return new DownloadFile(accountId, link, title, body, directory);
     }
 
+    public Long getAccountId() {
+        return accountId;
+    }
+
     public String getLink() {
         return link;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getBody() {
+        return body;
     }
 }

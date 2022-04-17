@@ -17,7 +17,7 @@ public class SwaggerConfig {
         Info info = new Info()
                 .title("Demo API")
                 .version("0.0.1")
-                .description("데모")
+                .description("이미지 스크랩 서비스")
                 .termsOfService("")
                 .contact(new Contact().name("이지영").url("https://tuliplee.tk").email("com8599@gmail.com"));
 
