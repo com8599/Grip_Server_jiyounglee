@@ -44,7 +44,6 @@ public class FileUploader {
 
             logger.info("responseCode " + responseCode);
 
-            // Status 가 200 일 때
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String fileName = "";
                 String disposition = conn.getHeaderField("Content-Disposition");
