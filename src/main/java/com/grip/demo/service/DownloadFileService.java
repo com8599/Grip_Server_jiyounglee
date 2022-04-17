@@ -18,7 +18,6 @@ public class DownloadFileService {
     private final DownloadFileRepository downloadFileRepository;
     private final FileUploader fileUploader;
 
-    private static final String DEFAULT_ACCOUNT_NAME = "";
     private static final int DEFAULT_PAGE = 10;
 
     public DownloadFileService(DownloadFileRepository downloadFileRepository, FileUploader fileUploader) {
